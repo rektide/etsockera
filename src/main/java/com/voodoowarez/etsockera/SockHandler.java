@@ -154,6 +154,11 @@ public class SockHandler extends SimpleChannelInboundHandler<Object> {
 		ctx.close();
 	}
 
+	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		this.openContexts.remove(ctx);
+	}
+
 	private String getWebSocketLocation(FullHttpRequest req) {
 		String location =  req.headers().get(HOST) + path;
 		if (this.ssl) {
